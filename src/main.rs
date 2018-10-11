@@ -73,7 +73,7 @@ impl UpsideDown for String {
         let mut new = String::new();
 
         for c in self.chars().rev() {
-            let c = c.to_string();
+            let c = c.to_lowercase().to_string();
             match table.get(&c) {
                 Some(n) => new.push_str(n),
                 None => new.push_str(&c),
