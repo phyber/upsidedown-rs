@@ -15,7 +15,3 @@ target/debug/upsidedown-rs "This will be upside down\!"
 cargo run -- "This will be upside down\!"
 ¡uʍop ǝpısdn ǝq ןןıʍ sıɥʇ
 ```
-
-## Limitations
-
-Doesn't handle uppercase characters, so it lowercases them first.
