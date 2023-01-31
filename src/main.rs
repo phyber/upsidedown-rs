@@ -4,7 +4,7 @@ use std::env;
 
 mod translations;
 
-type UpsideDownTranslation = HashMap<String, String>;
+type UpsideDownTranslation = HashMap<char, char>;
 
 trait UpsideDown {
     fn upsidedown(&self) -> String;
@@ -22,18 +22,19 @@ impl UpsideDown for String {
     fn upsidedown(&self) -> String {
         let table = self.upsidedown_table();
 
-        let mut new = String::new();
+        self.chars()
+            .rev()
+            .map(|c| {
+                let c = match table.get(&c) {
+                    Some(c) => c,
+                    None    => &c,
+                };
 
-        for c in self.chars().rev() {
-            let c = c.to_string();
-
-            match table.get(&c) {
-                Some(n) => new.push_str(n),
-                None    => new.push_str(&c),
-            }
-        }
-
-        return new;
+                *c
+            })
+            .collect::<Vec<char>>()
+            .iter()
+            .collect::<String>()
     }
 }
 

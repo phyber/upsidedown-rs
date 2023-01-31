@@ -95,8 +95,8 @@ const UPSIDE_DOWN_NUMBER: &'static [char] = &[
     '6',
 ];
 
-pub fn table() -> HashMap<String, String> {
-    let mut table: HashMap<String, String> = HashMap::new();
+pub fn table() -> HashMap<char, char> {
+    let mut table: HashMap<char, char> = HashMap::new();
 
     // Alphabet, upper followed by lower.
     let alphabet = (b'A' .. b'Z' + 1)  // u8
@@ -112,21 +112,22 @@ pub fn table() -> HashMap<String, String> {
     // Alphabet translations
     for (old, (new_upper, new_lower)) in alphabet.iter().zip(iter) {
         // Upper
-        table.insert(old.to_string(), new_upper.to_string());
+        table.insert(*old, *new_upper);
 
         // Lower
-        table.insert(old.to_lowercase().to_string(), new_lower.to_string());
+        table.insert(old.to_ascii_lowercase(), *new_lower);
     }
 
     // Number translations
     let numbers = (0 .. 9).into_iter().zip(UPSIDE_DOWN_NUMBER.iter());
     for (old, new) in numbers {
-        table.insert(old.to_string(), new.to_string());
+        let old = old.to_string().chars().nth(0).unwrap();
+        table.insert(old, *new);
     }
 
     // Punctuation
     for (old, new) in PUNCTUATION {
-        table.insert(old.to_string(), new.to_string());
+        table.insert(*old, *new);
     }
 
     return table;
