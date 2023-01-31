@@ -14,8 +14,7 @@ trait UpsideDown {
 impl UpsideDown for String {
     // Return a translation table for making a string upside down.
     fn upsidedown_table(&self) -> UpsideDownTranslation {
-        let table = translations::table();
-        return table;
+        translations::table()
     }
 
     // Take the string and flip it.
@@ -40,6 +39,6 @@ impl UpsideDown for String {
 
 fn main() {
     let args: Vec<String> = env::args().skip(1).collect();
-    let orig = args.join(" ").to_string();
+    let orig = args.join(" ");
     println!("{}", orig.upsidedown());
 }

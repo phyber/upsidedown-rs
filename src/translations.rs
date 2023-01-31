@@ -1,7 +1,7 @@
 // Translation tables
 use std::collections::HashMap;
 
-const PUNCTUATION: &'static [(char, char)] = &[
+const PUNCTUATION: &[(char, char)] = &[
     ('.', '\u{02D9}'),
     ('[', ']'),
     (']', '['),
@@ -24,7 +24,7 @@ const PUNCTUATION: &'static [(char, char)] = &[
     ('\u{2234}', '\u{2235}'), // ‴ => ‵
 ];
 
-const UPSIDE_DOWN_ALPHA_UPPER: &'static [char] = &[
+const UPSIDE_DOWN_ALPHA_UPPER: &[char] = &[
     '∀',
     'B', // FIXME
     'Ɔ',
@@ -53,7 +53,7 @@ const UPSIDE_DOWN_ALPHA_UPPER: &'static [char] = &[
     'Z',
 ];
 
-const UPSIDE_DOWN_ALPHA_LOWER: &'static [char] = &[
+const UPSIDE_DOWN_ALPHA_LOWER: &[char] = &[
     '\u{0250}',
     'q',
     '\u{0254}',
@@ -82,7 +82,7 @@ const UPSIDE_DOWN_ALPHA_LOWER: &'static [char] = &[
     'z',
 ];
 
-const NUMBERS: &'static [(char, char)] = &[
+const NUMBERS: &[(char, char)] = &[
     ('0', '0'),
     ('1', 'Ɩ'),
     ('2', 'ᄅ'),
