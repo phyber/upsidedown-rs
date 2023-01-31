@@ -1,6 +1,24 @@
 // Translation tables
 use std::collections::HashMap;
 
+const ALPHABET: &[char] = &[
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+    'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+];
+
+const NUMBERS: &[(char, char)] = &[
+    ('0', '0'),
+    ('1', 'Ɩ'),
+    ('2', 'ᄅ'),
+    ('3', 'Ɛ'),
+    ('4', 'ㄣ'),
+    ('5', 'ϛ'),
+    ('6', '9'),
+    ('7', 'ㄥ'),
+    ('8', '8'),
+    ('9', '6'),
+];
+
 const PUNCTUATION: &[(char, char)] = &[
     ('.', '\u{02D9}'),
     ('[', ']'),
@@ -82,24 +100,8 @@ const UPSIDE_DOWN_ALPHA_LOWER: &[char] = &[
     'z',
 ];
 
-const NUMBERS: &[(char, char)] = &[
-    ('0', '0'),
-    ('1', 'Ɩ'),
-    ('2', 'ᄅ'),
-    ('3', 'Ɛ'),
-    ('4', 'ㄣ'),
-    ('5', 'ϛ'),
-    ('6', '9'),
-    ('7', 'ㄥ'),
-    ('8', '8'),
-    ('9', '6'),
-];
-
 pub fn table() -> HashMap<char, char> {
     let mut table: HashMap<char, char> = HashMap::new();
-
-    // Alphabet, upper followed by lower. Iterate over this later.
-    let alphabet = b'A' as char ..= b'Z' as char;  // u8
 
     // Zip upper and lower translations together.
     let upper_lower = UPSIDE_DOWN_ALPHA_UPPER.iter()
@@ -107,10 +109,9 @@ pub fn table() -> HashMap<char, char> {
 
 
     // Alphabet translations
-
-    for (old, (new_upper, new_lower)) in alphabet.zip(upper_lower) {
+    for (old, (new_upper, new_lower)) in ALPHABET.iter().zip(upper_lower) {
         // Upper
-        table.insert(old, *new_upper);
+        table.insert(*old, *new_upper);
 
         // Lower
         table.insert(old.to_ascii_lowercase(), *new_lower);
