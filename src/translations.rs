@@ -82,47 +82,43 @@ const UPSIDE_DOWN_ALPHA_LOWER: &'static [char] = &[
     'z',
 ];
 
-const UPSIDE_DOWN_NUMBER: &'static [char] = &[
-    '0',
-    'Ɩ',
-    'ᄅ',
-    'Ɛ',
-    'ㄣ',
-    'ϛ',
-    '9',
-    'ㄥ',
-    '8',
-    '6',
+const NUMBERS: &'static [(char, char)] = &[
+    ('0', '0'),
+    ('1', 'Ɩ'),
+    ('2', 'ᄅ'),
+    ('3', 'Ɛ'),
+    ('4', 'ㄣ'),
+    ('5', 'ϛ'),
+    ('6', '9'),
+    ('7', 'ㄥ'),
+    ('8', '8'),
+    ('9', '6'),
 ];
 
 pub fn table() -> HashMap<char, char> {
     let mut table: HashMap<char, char> = HashMap::new();
 
-    // Alphabet, upper followed by lower.
-    let alphabet = (b'A' .. b'Z' + 1)  // u8
-        .map(|c| c as char)            // convert to char
-        .filter(|c| c.is_alphabetic()) // Filter alphabetics
-        .collect::<Vec<_>>();          // Collect chars
+    // Alphabet, upper followed by lower. Iterate over this later.
+    let alphabet = b'A' as char ..= b'Z' as char;  // u8
 
     // Zip upper and lower translations together.
-    let iter = UPSIDE_DOWN_ALPHA_UPPER.iter()
+    let upper_lower = UPSIDE_DOWN_ALPHA_UPPER.iter()
         .zip(UPSIDE_DOWN_ALPHA_LOWER.iter());
 
 
     // Alphabet translations
-    for (old, (new_upper, new_lower)) in alphabet.iter().zip(iter) {
+
+    for (old, (new_upper, new_lower)) in alphabet.zip(upper_lower) {
         // Upper
-        table.insert(*old, *new_upper);
+        table.insert(old, *new_upper);
 
         // Lower
         table.insert(old.to_ascii_lowercase(), *new_lower);
     }
 
     // Number translations
-    let numbers = (0 .. 9).into_iter().zip(UPSIDE_DOWN_NUMBER.iter());
-    for (old, new) in numbers {
-        let old = old.to_string().chars().nth(0).unwrap();
-        table.insert(old, *new);
+    for (old, new) in NUMBERS {
+        table.insert(*old, *new);
     }
 
     // Punctuation
@@ -130,5 +126,5 @@ pub fn table() -> HashMap<char, char> {
         table.insert(*old, *new);
     }
 
-    return table;
+    table
 }
